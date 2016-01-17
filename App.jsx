@@ -39,12 +39,7 @@ App = React.createClass({
     // get input content with react ref
     var text = this.refs.textInput.value.trim();
 
-    Tasks.insert({
-      text: text,
-      createdAt: new Date(), // current time
-      owner: Meteor.userId(), // id of the logged in userId
-      username: Meteor.user().username // username of logged in user
-    });
+    Meteor.call("addTask", text);
 
     this.refs.textInput.value = "";
   },
@@ -78,7 +73,7 @@ App = React.createClass({
                 type="text"
                 ref="textInput"
                 placeholder="Type to add new tasks"/>
-            </form> : ''            
+            </form> : ''
           }
         </header>
 
