@@ -18,11 +18,32 @@ App = React.createClass({
     });
   },
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    // get input content with react ref
+    var text = React.findDomNode(this.refs.textInput).value.trim();
+
+    Tasks.insert({
+      text: text,
+      createdAt: new Date() // current time
+    });
+
+    React.findDomNode(this.refs.textInput).value = "";
+  },
+
   render() {
     return (
       <div className="container">
         <header>
           <h1>Todo List</h1>
+          {/* Adding a classy form here */}
+          <form className="new-task" onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              ref="textInput"
+              placeholder="Type to add new tasks"/>
+          </form>
         </header>
 
         <ul>
